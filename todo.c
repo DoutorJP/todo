@@ -27,7 +27,12 @@ int main(int argc, char** argv){
   printf("status | number | description\n");
   line();
   list(p);
-
+  if(write_data("save.bin", p, n_users))
+	printf("Write ok!\n");
+  else{
+	printf("error writing to file\n");
+	return 1;
+  }
   //  free(file_data);
   free(p);
   return 0;
@@ -79,4 +84,13 @@ void list(todo* p){
 	fflush(stdout);
 	line();
   }  
+}
+
+bool write_data(char* filename, todo* data, int total){
+  FILE* file = fopen(filename, "wb");
+  if(file == NULL) return false;
+  if(fwrite(&total, sizeof(int), 1, file) != 1) return false;
+  if(fwrite(data, sizeof(todo), total, file) != total) return false;
+  if(fclose(file) == EOF) return false;
+  return true;
 }
