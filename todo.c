@@ -75,7 +75,7 @@ void list(todo* p){
   for(int i = 0; i < n_users; i++){
 	(p[i].status == false) ? strncpy(status, "TODO", 5) : strncpy(status, "DONE", 5);
 	fflush(stdout);
-	printf("%s %d %s\n", status, p[i].number, p[i].desc);
+	printf("%s  | %d  | %s\n", status, p[i].number, p[i].desc);
 	fflush(stdout);
 	line();
   }  
